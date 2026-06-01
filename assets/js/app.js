@@ -8,6 +8,18 @@ const STORAGE_KEY = 'thaihelp_plus_transactions';
 const THEME_KEY = 'thaihelp_plus_theme';
 let currentCalculation = null;
 
+const APP_VERSION = "5.0";
+const APP_AUTHOR = "ณัฐชนน ศรีเปล่ง";
+
+function initFooter() {
+    const footer = document.getElementById('appFooter');
+    if (!footer) return;
+
+    footer.innerHTML = `
+        App Version ${APP_VERSION} • พัฒนาโดย ${APP_AUTHOR}
+    `;
+}
+
 /* =========================================================
    INITIALIZE
 ========================================================= */
@@ -18,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHistory();
     updateBalance();
     bindEvents();
+    initFooter(); 
     hideSplash();
 });
 
