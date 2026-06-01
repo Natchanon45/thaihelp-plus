@@ -1,0 +1,470 @@
+/* =========================================================
+   THAI HELP PLUS
+   Production CSS v1
+========================================================= */
+
+:root {
+    --primary: #06c755;
+    --primary-dark: #05a647;
+    --secondary: #f4f7f6;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --text: #1f2937;
+    --text-light: #6b7280;
+    --border: #e5e7eb;
+    --card-bg: #ffffff;
+    --body-bg: #f4f7f6;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.12);
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+    --nav-height: 75px;
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark {
+    --body-bg: #0f172a;
+    --card-bg: #1e293b;
+    --text: #f8fafc;
+    --text-light: #cbd5e1;
+    --border: #334155;
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Kanit', sans-serif;
+    background: var(--body-bg);
+    color: var(--text);
+    min-height: 100%;
+    transition: 0.25s ease;
+}
+
+body {
+    padding-bottom: calc(var(--nav-height) + 20px);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+.page {
+    display: none;
+}
+
+.active-page {
+    display: block;
+}
+
+.container {
+    max-width: 900px;
+}
+
+/* =========================================================
+   SPLASH
+========================================================= */
+
+#splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+#splash-screen img {
+    width: 100px;
+}
+
+#splash-screen h1 {
+    font-size: 28px;
+    margin: 0;
+    color: var(--primary);
+}
+
+#splash-screen p {
+    margin: 0;
+    color: #888;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.app-header {
+    padding-top: 20px;
+    margin-bottom: 15px;
+}
+
+.header-card {
+    background: linear-gradient(135deg, #06c755, #05a647);
+    color: white;
+    border-radius: 24px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: var(--shadow-lg);
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    background: white;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.app-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.app-subtitle {
+    opacity: 0.9;
+    font-size: 14px;
+}
+
+.theme-btn {
+    margin-left: auto;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+}
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.date-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.date-card i {
+    color: var(--primary);
+}
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.app-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-title i {
+    color: var(--primary);
+}
+
+/* =========================================================
+   BALANCE CARD
+========================================================= */
+
+.balance-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.balance-label {
+    font-size: 14px;
+    color: var(--text-light);
+}
+
+.balance-value {
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.balance-max {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress {
+    height: 14px;
+    border-radius: 50px;
+    overflow: hidden;
+    background: #e5e7eb;
+}
+
+.progress-bar {
+    transition: width 0.4s ease;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-control {
+    border-radius: 14px !important;
+    min-height: 54px;
+}
+
+.btn {
+    border-radius: 14px !important;
+}
+
+.btn-success {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-success:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* =========================================================
+   RESULT CARD
+========================================================= */
+
+.result-card {
+    margin-top: 15px;
+    border: 2px solid rgba(6, 199, 85, 0.15);
+}
+
+.result-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.result-item {
+    border-radius: 18px;
+    padding: 18px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.result-item i {
+    font-size: 24px;
+}
+
+.result-item label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.result-item span {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.result-item.gov {
+    background: rgba(6, 199, 85, 0.1);
+}
+
+.result-item.gov i {
+    color: var(--success);
+}
+
+.result-item.user {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.result-item.user i {
+    color: #3b82f6;
+}
+
+.cap-note {
+    margin-top: 12px;
+    color: #f97316;
+    font-size: 14px;
+}
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.table {
+    margin-top: 15px;
+}
+
+.table th {
+    font-weight: 600;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+}
+
+.empty-state i {
+    font-size: 48px;
+    color: var(--primary);
+}
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.chart-container {
+    position: relative;
+    height: 320px;
+    width: 100%;
+}
+
+.chart-container canvas {
+    display: block;
+}
+
+/* =========================================================
+   BOTTOM NAV
+========================================================= */
+
+.bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--nav-height);
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 9999;
+}
+
+.nav-btn {
+    flex: 1;
+    border: none;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: var(--text-light);
+}
+
+.nav-btn.active {
+    color: var(--primary);
+}
+
+.nav-btn i {
+    font-size: 22px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    border-radius: 14px;
+}
+
+.toast-header {
+    background: var(--primary);
+    color: white;
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes fadePage {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+    .app-title {
+        font-size: 20px;
+    }
+
+    .balance-value {
+        font-size: 28px;
+    }
+
+    .result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 769px) {
+    .container {
+        max-width: 1000px;
+    }
+}
