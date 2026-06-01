@@ -7,6 +7,7 @@ const MONTHLY_LIMIT = 1000;
 const STORAGE_KEY = 'thaihelp_plus_transactions';
 const THEME_KEY = 'thaihelp_plus_theme';
 let currentCalculation = null;
+
 /* =========================================================
    INITIALIZE
 ========================================================= */
@@ -53,6 +54,64 @@ function bindEvents() {
     document.getElementById('clearAllBtn')?.addEventListener('click', clearAllTransactions);
     document.getElementById('historySearch')?.addEventListener('keyup', searchHistory);
     document.getElementById('toggleTheme')?.addEventListener('click', toggleTheme);
+
+    // ==============================
+    // AMOUNT INPUT (PRO VERSION)
+    // ==============================
+    const input = document.getElementById('totalAmount');
+    const btnClear = document.getElementById('btnClearAmount');
+    if (!input || !btnClear) return;
+    let isFormatting = false;
+    input.addEventListener('input', function (e) {
+        if (isFormatting) return;
+        isFormatting = true;
+        const el = e.target;
+        const oldValue = el.value;
+        const cursorPos = el.selectionStart;
+        let value = oldValue.replace(/,/g, '').replace(/[^0-9.]/g, '');
+        // กัน dot ซ้ำ
+        const firstDot = value.indexOf('.');
+        if (firstDot !== -1) {
+            value = value.substring(0, firstDot + 1) + value.substring(firstDot + 1).replace(/\./g, '');
+        }
+        let [intPart, decPart] = value.split('.');
+        intPart = intPart ? Number(intPart).toLocaleString('en-US') : '';
+        const newValue = decPart !== undefined ? `${intPart}.${decPart}` : intPart;
+        el.value = newValue;
+        // ===== FIX CURSOR (ไม่กระพริบ) =====
+        const diff = newValue.length - oldValue.length;
+        const newCursor = Math.max(0, cursorPos + diff);
+        requestAnimationFrame(() => {
+            el.setSelectionRange(newCursor, newCursor);
+            isFormatting = false;
+        });
+    });
+
+    document.querySelectorAll('.amount-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.amount-btn').forEach((b) => b.classList.remove('active'));
+            btn.classList.add('active');
+            const input = document.getElementById('totalAmount');
+            input.value = btn.dataset.value;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.focus();
+        });
+    });
+    // paste support
+    input.addEventListener('paste', () => {
+        setTimeout(() => {
+            input.dispatchEvent(new Event('input'));
+        }, 0);
+    });
+    // clear button
+    input.addEventListener('input', function () {
+        btnClear.classList.toggle('show', input.value.length > 0);
+    });
+    btnClear.addEventListener('click', function () {
+        input.value = '';
+        btnClear.classList.remove('show');
+        input.focus();
+    });
 }
 
 /* =========================================================
@@ -109,12 +168,11 @@ function updateBalance() {
 ========================================================= */
 
 function calculate() {
-    const total = parseFloat(document.getElementById('totalAmount').value);
+    const total = parseMoney(totalAmount.value);
     if (isNaN(total) || total <= 0) {
         showToast('กรุณากรอกจำนวนเงิน');
         return;
     }
-
     const usage = calculateUsage();
     const remainDaily = DAILY_LIMIT - usage.daily;
     const remainMonthly = MONTHLY_LIMIT - usage.monthly;
@@ -360,4 +418,35 @@ function showSuccess(message) {
     setTimeout(() => {
         toast.classList.remove('show');
     }, 2500);
+}
+
+function parseMoney(value) {
+    return parseFloat(value.replace(/,/g, '')) || 0;
+}
+
+function handleMoneyInput(e) {
+    if (isFormatting) return;
+    isFormatting = true;
+    const input = e.target;
+    // เก็บตำแหน่ง cursor
+    const selectionStart = input.selectionStart;
+    const oldValue = input.value;
+    // clean input
+    let value = oldValue.replace(/,/g, '').replace(/[^0-9.]/g, '');
+    // กัน dot เกิน 1 จุด
+    const firstDot = value.indexOf('.');
+    if (firstDot !== -1) {
+        value = value.substring(0, firstDot + 1) + value.substring(firstDot + 1).replace(/\./g, '');
+    }
+    let [intPart, decimalPart] = value.split('.');
+    intPart = intPart ? Number(intPart).toLocaleString('en-US') : '';
+    let newValue = decimalPart !== undefined ? `${intPart}.${decimalPart}` : intPart;
+    input.value = newValue;
+    // ===== cursor fix (กันกระพริบ) =====
+    const diff = newValue.length - oldValue.length;
+    const newCursorPos = Math.max(0, selectionStart + diff);
+    requestAnimationFrame(() => {
+        input.setSelectionRange(newCursorPos, newCursorPos);
+        isFormatting = false;
+    });
 }

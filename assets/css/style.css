@@ -441,6 +441,112 @@ a {
     display: flex;
 }
 
+.quick-amount {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.quick-amount .btn {
+    min-width: 70px;
+}
+.input-wrapper {
+    position: relative;
+}
+
+/* input */
+.input-wrapper .form-control {
+    padding-right: 44px;
+}
+
+/* ปุ่ม X แบบ glass circle */
+.clear-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(4, 170, 7, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.18s ease;
+}
+
+/* hover นุ่มๆ */
+.clear-btn:hover {
+    background: rgba(17, 249, 33, 0.7);
+    transform: translateY(-50%) scale(1);
+}
+/* show state */
+.clear-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+}
+/* icon */
+.clear-btn i {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    opacity: 0.7;
+}
+.input-group-lg .form-control {
+    border-right: 0;
+}
+
+.input-group-lg .btn {
+    border-left: 0;
+    border-right: 0;
+}
+.input-group-lg .input-group-text {
+    border-left: 0;
+}
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type='number'] {
+    appearance: textfield;
+}
+#btnClearAmount {
+    min-width: 30px;
+}
+.btn-soft-success {
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    color: #2e7d32;
+    border-radius: 999px;
+    transition: 0.2s;
+}
+.btn-soft-success:hover {
+    background: #c8e6c9;
+    transform: translateY(-1px);
+}
+
+.amount-btn {
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.amount-btn:hover {
+    transform: translateY(-1px);
+}
+.amount-btn.active {
+    background: #2e7d32;
+    color: #fff;
+}
+
 /* =========================================================
    ANIMATION
 ========================================================= */
