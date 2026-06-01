@@ -65,13 +65,41 @@ async function installApp() {
 /* =========================================================
    APP INSTALLED
 ========================================================= */
-window.addEventListener(
-    'appinstalled',
-    () => {
-        console.log('PWA Installed');
-        const btn = document.getElementById('installBtn');
-        if (btn) {
-            btn.remove();
-        }
-    },
-);
+window.addEventListener('appinstalled', () => {
+    console.log('PWA Installed');
+    const btn = document.getElementById('installBtn');
+    if (btn) {
+        btn.remove();
+    }
+});
+
+function isIOS() {
+    return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+
+function isInStandaloneMode() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+window.addEventListener('load', () => {
+    if (isIOS() && !isInStandaloneMode()) {
+        showIOSInstallHelp();
+    }
+});
+
+function showIOSInstallHelp() {
+    if (document.getElementById('iosInstallBtn')) {
+        return;
+    }
+    const btn = document.createElement('button');
+    btn.id = 'iosInstallBtn';
+    btn.className = 'btn btn-success position-fixed';
+    btn.style.bottom = '95px';
+    btn.style.right = '15px';
+    btn.style.zIndex = '9999';
+    btn.innerHTML = '<i class="fi fi-rr-mobile-button"></i> ติดตั้งแอป';
+    btn.onclick = function () {
+        alert('บน iPhone ให้กดปุ่ม Share แล้วเลือก "Add to Home Screen"');
+    };
+    document.body.appendChild(btn);
+}

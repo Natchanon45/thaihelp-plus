@@ -286,24 +286,29 @@ function formatDate(dateStr) {
 function showToast(message) {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
-    toast.className = 'toast show';
+    toast.className = 'toast text-bg-success border-0';
     toast.innerHTML = `
         <div class="toast-header">
-            <i class="fi fi-rr-check me-2"></i>
-            <strong class="me-auto">
-                ระบบ
-            </strong>
+            <i class="fi fi-rr-check me-2 text-success"></i>
+            <strong class="me-auto">ระบบ</strong>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="toast">
+            </button>
         </div>
-
         <div class="toast-body">
             ${message}
         </div>
     `;
-
     container.appendChild(toast);
-    setTimeout(() => {
+    const bsToast = new bootstrap.Toast(toast, {
+        delay: 3000,
+    });
+    bsToast.show();
+    toast.addEventListener('hidden.bs.toast', () => {
         toast.remove();
-    }, 3000);
+    });
 }
 
 /* =========================================================
@@ -346,4 +351,13 @@ function initNavigation() {
             }
         });
     });
+}
+
+function showSuccess(message) {
+    const toast = document.getElementById('toastSuccess');
+    document.getElementById('toastMessage').textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
 }

@@ -411,13 +411,34 @@ a {
    TOAST
 ========================================================= */
 
+.toast-container {
+    z-index: 99999 !important;
+}
 .toast {
+    min-width: 280px;
     border-radius: 14px;
 }
-
 .toast-header {
     background: var(--primary);
     color: white;
+}
+.toast-success {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #06c755;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 12px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    z-index: 99999;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.toast-success.show {
+    display: flex;
 }
 
 /* =========================================================
