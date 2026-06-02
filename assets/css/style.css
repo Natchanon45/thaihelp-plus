@@ -522,6 +522,50 @@ a {
     display: block;
 }
 
+.chart-tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--card-bg);
+    color: var(--text);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translate(-50%, -110%);
+    transition: all 0.18s ease;
+    z-index: 999;
+}
+
+.chart-tooltip.show {
+    opacity: 1;
+}
+
+.chart-tooltip-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.chart-tooltip-value {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.chart-tooltip::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 12px;
+    height: 12px;
+    background: var(--card-bg);
+    transform: translateX(-50%) rotate(45deg);
+}
+
 /* =========================================================
    BOTTOM NAV
 ========================================================= */

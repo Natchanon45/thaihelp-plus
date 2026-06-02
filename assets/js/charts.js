@@ -166,6 +166,27 @@ function createLineChart() {
                 },
             ],
         },
+        plugins: [
+            {
+                id: 'crosshair',
+                afterDraw(chart) {
+                    if (!chart.tooltip?.getActiveElements().length) {
+                        return;
+                    }
+                    const ctx = chart.ctx;
+                    const activePoint = chart.tooltip.getActiveElements()[0];
+                    const x = activePoint.element.x;
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(x, chart.chartArea.top);
+                    ctx.lineTo(x, chart.chartArea.bottom);
+                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = '#06C755';
+                    ctx.stroke();
+                    ctx.restore();
+                },
+            },
+        ],
         options: {
             responsive: true,
             maintainAspectRatio: false,
@@ -174,24 +195,15 @@ function createLineChart() {
                 mode: 'index',
                 intersect: false,
             },
-            plugins: [
-                {
-                    afterDraw(chart) {
-                        if (chart.tooltip?._active?.length) {
-                            const ctx = chart.ctx;
-                            const x = chart.tooltip._active[0].element.x;
-                            ctx.save();
-                            ctx.beginPath();
-                            ctx.moveTo(x, chart.chartArea.top);
-                            ctx.lineTo(x, chart.chartArea.bottom);
-                            ctx.strokeStyle = '#06C755';
-                            ctx.lineWidth = 1;
-                            ctx.stroke();
-                            ctx.restore();
-                        }
-                    },
+            plugins: {
+                legend: {
+                    display: false,
                 },
-            ],
+                tooltip: {
+                    enabled: false,
+                    external: externalTooltipHandler,
+                },
+            },
         },
     });
 }
@@ -239,10 +251,12 @@ function externalTooltipHandler(context) {
     const label = data.label;
     const value = data.formattedValue;
     tooltipEl.innerHTML = `
-        <div style="font-weight:600;margin-bottom:2px">${label}</div>
-        <div style="color:#22c55e;display:flex;align-items:center;gap:6px;">
+        <div class="chart-tooltip-title">
+            วันที่ ${label}
+        </div>
+        <div class="chart-tooltip-value">
             <i class="fi fi-rr-coins"></i>
-            ${value} บาท
+            รัฐช่วย ${Number(value).toLocaleString()} บาท
         </div>
     `;
     const canvasRect = chart.canvas.getBoundingClientRect();
