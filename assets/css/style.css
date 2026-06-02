@@ -421,67 +421,64 @@ a {
 ========================================================= */
 
 .result-card {
-    margin-top: 15px;
-    border: 2px solid rgba(6, 199, 85, 0.15);
+    margin-top: 12px;
+    border-radius: 16px;
+    padding: 12px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-sm);
 }
 
-.result-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 15px;
+.result-card.compact {
+    position: sticky;
+    bottom: 10px;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
 .result-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
-.result-item {
-    border-radius: 18px;
-    padding: 18px;
-    display: flex;
-    gap: 12px;
-    align-items: center;
+.result-box {
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
 }
 
-.result-item i {
-    font-size: 24px;
+.result-box .label {
+    font-size: 12px;
+    opacity: 0.7;
 }
 
-.result-item label {
-    display: block;
-    font-size: 13px;
-    color: var(--text-light);
+.result-box .value {
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.result-item span {
-    font-size: 22px;
-    font-weight: 700;
-}
-
-.result-item.gov {
+.result-box.gov {
     background: rgba(6, 199, 85, 0.1);
 }
 
-.result-item.gov i {
-    color: var(--success);
-}
-
-.result-item.user {
-    background: rgba(59, 130, 246, 0.1);
-}
-
-.result-item.user i {
-    color: #3b82f6;
+.result-box.user {
+    background: rgba(255, 99, 132, 0.1);
 }
 
 .cap-note {
-    margin-top: 12px;
-    color: #f97316;
-    font-size: 14px;
+    font-size: 12px;
+    margin-top: 8px;
+    text-align: center;
+    color: #f59e0b;
 }
-
 /* =========================================================
    HISTORY
 ========================================================= */

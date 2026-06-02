@@ -153,6 +153,12 @@
                                 <button class="btn btn-sm btn-soft-success amount-btn" data-value="150">150</button>
                                 <button class="btn btn-sm btn-soft-success amount-btn" data-value="200">200</button>
                             </div>
+                            <div class="stepper-amount d-flex gap-2 mt-2">
+                                <button class="btn btn-outline-primary step-btn" data-step="1">+1</button>
+                                <button class="btn btn-outline-primary step-btn" data-step="5">+5</button>
+                                <button class="btn btn-outline-primary step-btn" data-step="10">+10</button>
+                                <button class="btn btn-outline-primary step-btn" data-step="20">+20</button>
+                            </div>
                         </div>
 
                         <div class="d-grid gap-2 mt-3">
@@ -168,25 +174,22 @@
                         </div>
                     </div>
                     <!-- Result -->
-                    <div id="resultCard" class="app-card result-card d-none">
-                        <div class="result-title">ผลการคำนวณ</div>
+                    <div id="resultCard" class="result-card compact d-none">
+                        <div class="result-header">
+                            <div>ผลลัพธ์</div>
+                            <button onclick="resetCalculator()" class="btn btn-sm btn-light">ล้างค่าผลลัพธ์</button>
+                        </div>
                         <div class="result-grid">
-                            <div class="result-item gov">
-                                <i class="fi fi-rr-hand-holding-heart"></i>
-                                <div>
-                                    <label>รัฐช่วย</label>
-                                    <span id="govAmount"> 0.00 </span>
-                                </div>
+                            <div class="result-box gov">
+                                <div class="label"><i class="fi fi-rr-hand-holding-heart"></i> รัฐช่วย</div>
+                                <div class="value" id="govAmount">0</div>
                             </div>
-                            <div class="result-item user">
-                                <i class="fi fi-rr-user"></i>
-                                <div>
-                                    <label>คุณจ่าย</label>
-                                    <span id="userAmount"> 0.00 </span>
-                                </div>
+                            <div class="result-box user">
+                                <div class="label"><i class="fi fi-rr-user"></i> ผู้ใช้จ่าย</div>
+                                <div class="value" id="userAmount">0</div>
                             </div>
                         </div>
-                        <div id="capNote" class="cap-note"></div>
+                        <div class="cap-note" id="capNote"></div>
                     </div>
                 </div>
             </main>

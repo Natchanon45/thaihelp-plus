@@ -9,7 +9,7 @@ const THEME_MODE_KEY = 'thaihelp_theme_mode';
 let currentCalculation = null;
 let isQuickSelect = false;
 
-const APP_VERSION = '5.2';
+const APP_VERSION = '5.2.1';
 const APP_AUTHOR = 'ณัฐชนน ศรีเปล่ง';
 
 /* =========================================================
@@ -121,10 +121,23 @@ function bindEvents() {
             btn.classList.add('active');
             input.value = btn.dataset.value;
             input.dispatchEvent(new Event('input', { bubbles: true }));
-            input.focus();
+            calculate();
+            // input.focus();
             setTimeout(() => {
                 isQuickSelect = false;
             }, 0);
+        });
+    });
+    
+    document.querySelectorAll('.step-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const input = document.getElementById('totalAmount');
+            let current = parseMoney(input.value || '0');
+            const step = Number(btn.dataset.step);
+            current += step;
+            input.value = current.toString();
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            calculate(); // 👉 auto recalc
         });
     });
     // paste support

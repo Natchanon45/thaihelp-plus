@@ -237,11 +237,12 @@ function externalTooltipHandler(context) {
 
     tooltipEl.innerHTML = `
         <div style="font-weight:600;margin-bottom:2px">${label}</div>
-        <div style="color:#22c55e">💰 ${value} บาท</div>
+        <div style="color:#22c55e;display:flex;align-items:center;gap:6px;">
+            <i class="fi fi-rr-coins"></i>
+            ${value} บาท
+        </div>
     `;
-
     const canvasRect = chart.canvas.getBoundingClientRect();
-
     // base position
     let left = canvasRect.left + window.pageXOffset + tooltip.caretX;
     let top = canvasRect.top + window.pageYOffset + tooltip.caretY;
