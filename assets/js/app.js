@@ -8,8 +8,7 @@ const STORAGE_KEY = 'thaihelp_plus_transactions';
 const THEME_MODE_KEY = 'thaihelp_theme_mode';
 let currentCalculation = null;
 let isQuickSelect = false;
-
-const APP_VERSION = '5.3.2';
+const APP_VERSION = APP_CONFIG.version;
 const APP_AUTHOR = 'ณัฐชนน ศรีเปล่ง';
 
 /* =========================================================
@@ -23,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBalance();
     bindEvents();
     initFooter();
+    checkVersion();
     hideSplash();
 });
 
@@ -128,7 +128,7 @@ function bindEvents() {
             }, 0);
         });
     });
-    
+
     document.querySelectorAll('.step-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
             const input = document.getElementById('totalAmount');
@@ -139,6 +139,18 @@ function bindEvents() {
             input.dispatchEvent(new Event('input', { bubbles: true }));
             calculate(); // 👉 auto recalc
         });
+    });
+
+    document.getElementById('btnUpdateApp')?.addEventListener('click', async () => {
+        if ('caches' in window) {
+            const names = await caches.keys();
+            await Promise.all(names.map((name) => caches.delete(name)));
+        }
+        if (navigator.serviceWorker) {
+            const regs = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(regs.map((reg) => reg.unregister()));
+        }
+        location.reload(true);
     });
     // paste support
     input.addEventListener('paste', () => {
@@ -511,7 +523,7 @@ function initFooter() {
     if (!footer) return;
 
     footer.innerHTML = `
-        App Version ${APP_VERSION} • พัฒนาโดย ${APP_AUTHOR}
+        App Version ${APP_CONFIG.version} • พัฒนาโดย ${APP_AUTHOR}
     `;
 }
 
@@ -558,4 +570,42 @@ function watchSystemTheme() {
         if (mode !== 'auto') return;
         applyTheme('auto');
     });
+}
+
+async function checkVersion() {
+    try {
+        const res = await fetch('./version.json?t=' + Date.now());
+        const latest = await res.json();
+        if (latest.version !== APP_CONFIG.version || latest.build !== APP_CONFIG.build) {
+            showUpdateButton();
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function showUpdateButton() {
+    const banner = document.getElementById('updateBanner');
+    if (!banner) return;
+
+    banner.classList.add('show');
+}
+async function updateApplication() {
+    try {
+        localStorage.removeItem('thaihelp_plus_theme');
+        if ('caches' in window) {
+            const names = await caches.keys();
+            await Promise.all(names.map((name) => caches.delete(name)));
+        }
+        if ('serviceWorker' in navigator) {
+            const regs = await navigator.serviceWorker.getRegistrations();
+            for (const reg of regs) {
+                await reg.unregister();
+            }
+        }
+        location.reload();
+    } catch (err) {
+        console.error(err);
+        alert('ไม่สามารถอัปเดตได้');
+    }
 }
