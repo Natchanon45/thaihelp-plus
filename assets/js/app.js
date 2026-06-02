@@ -576,11 +576,17 @@ async function checkVersion() {
     try {
         const res = await fetch('./version.json?t=' + Date.now());
         const latest = await res.json();
-        if (latest.version !== APP_CONFIG.version || latest.build !== APP_CONFIG.build) {
+        console.log('Current:', APP_CONFIG.version, APP_CONFIG.build);
+        console.log('Latest :', latest.version, latest.build);
+        if (
+            latest.version !== APP_CONFIG.version ||
+            latest.build !== APP_CONFIG.build
+        ) {
+            console.log('NEW VERSION FOUND');
             showUpdateButton();
         }
-    } catch (e) {
-        console.error(e);
+    } catch (err) {
+        console.error(err);
     }
 }
 
