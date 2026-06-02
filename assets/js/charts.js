@@ -8,6 +8,12 @@ let lineChart = null;
    LOAD CHARTS WHEN PAGE READY
 ========================================================= */
 
+const tooltipEl = document.getElementById('chartTooltip');
+
+function getOrCreateTooltip() {
+    return tooltipEl;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const summaryPage = document.getElementById('page-summary');
     if (summaryPage && summaryPage.classList.contains('active-page')) {
@@ -122,10 +128,9 @@ function createBarChart() {
                 legend: {
                     display: false,
                 },
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
+                tooltip: {
+                    enabled: false,
+                    external: externalTooltipHandler,
                 },
             },
         },
@@ -161,13 +166,16 @@ function createLineChart() {
                 },
             ],
         },
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
                 legend: {
                     display: false,
+                },
+                tooltip: {
+                    enabled: false,
+                    external: externalTooltipHandler,
                 },
             },
             scales: {
@@ -209,4 +217,57 @@ function formatChartDate(dateStr) {
     const day = String(d.getDate()).padStart(2, '0');
     const month = String(d.getMonth() + 1).padStart(2, '0');
     return `${day}/${month}`;
+}
+
+function externalTooltipHandler(context) {
+    const { tooltip, chart } = context;
+    const tooltipEl = getOrCreateTooltip();
+
+    // ❌ hide
+    if (!tooltip || tooltip.opacity === 0) {
+        tooltipEl.classList.remove('show');
+        return;
+    }
+
+    const data = tooltip.dataPoints?.[0];
+    if (!data) return;
+
+    const label = data.label;
+    const value = data.formattedValue;
+
+    tooltipEl.innerHTML = `
+        <div style="font-weight:600;margin-bottom:2px">${label}</div>
+        <div style="color:#22c55e">💰 ${value} บาท</div>
+    `;
+
+    const canvasRect = chart.canvas.getBoundingClientRect();
+
+    // base position
+    let left = canvasRect.left + window.pageXOffset + tooltip.caretX;
+    let top = canvasRect.top + window.pageYOffset + tooltip.caretY;
+
+    // 📌 AUTO FLIP (สำคัญ)
+    const tooltipHeight = 40;
+    const viewportHeight = window.innerHeight;
+
+    const projectedTop = top - tooltipHeight;
+
+    if (projectedTop < window.scrollY) {
+        // ถ้าชนบน → ไปด้านล่าง
+        tooltipEl.style.transform = 'translate(-50%, 20%) scale(1)';
+    } else {
+        tooltipEl.style.transform = 'translate(-50%, -120%) scale(1)';
+    }
+
+    // 📌 CLAMP X (ไม่ให้หลุดจอ)
+    const tooltipWidth = tooltipEl.offsetWidth || 120;
+    const minX = tooltipWidth / 2 + 10;
+    const maxX = window.innerWidth - tooltipWidth / 2 - 10;
+
+    left = Math.max(minX, Math.min(left, maxX));
+
+    tooltipEl.style.left = left + 'px';
+    tooltipEl.style.top = top + 'px';
+
+    tooltipEl.classList.add('show');
 }
