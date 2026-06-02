@@ -32,7 +32,6 @@ function getChartTransactions() {
         return [];
     }
 }
-
 /* =========================================================
    DAILY SUMMARY
 ========================================================= */
@@ -68,7 +67,6 @@ function buildCumulativeSummary() {
         if (!grouped[date]) {
             grouped[date] = 0;
         }
-
         grouped[date] += Number(row.gov);
     });
 
@@ -149,7 +147,6 @@ function createLineChart() {
     if (lineChart) {
         lineChart.destroy();
     }
-
     lineChart = new Chart(canvas, {
         type: 'line',
         data: {
@@ -163,26 +160,38 @@ function createLineChart() {
                     backgroundColor: 'rgba(6,199,85,.15)',
                     tension: 0.35,
                     fill: true,
+                    pointRadius: 6,
+                    pointHoverRadius: 10,
+                    pointHitRadius: 30,
                 },
             ],
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                },
-                tooltip: {
-                    enabled: false,
-                    external: externalTooltipHandler,
-                },
+            events: ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
+            interaction: {
+                mode: 'index',
+                intersect: false,
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
+            plugins: [
+                {
+                    afterDraw(chart) {
+                        if (chart.tooltip?._active?.length) {
+                            const ctx = chart.ctx;
+                            const x = chart.tooltip._active[0].element.x;
+                            ctx.save();
+                            ctx.beginPath();
+                            ctx.moveTo(x, chart.chartArea.top);
+                            ctx.lineTo(x, chart.chartArea.bottom);
+                            ctx.strokeStyle = '#06C755';
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                            ctx.restore();
+                        }
+                    },
                 },
-            },
+            ],
         },
     });
 }
@@ -196,12 +205,10 @@ function refreshCharts() {
         barChart.destroy();
         barChart = null;
     }
-
     if (lineChart) {
         lineChart.destroy();
         lineChart = null;
     }
-
     setTimeout(() => {
         createBarChart();
         createLineChart();
@@ -222,19 +229,15 @@ function formatChartDate(dateStr) {
 function externalTooltipHandler(context) {
     const { tooltip, chart } = context;
     const tooltipEl = getOrCreateTooltip();
-
     // ❌ hide
     if (!tooltip || tooltip.opacity === 0) {
         tooltipEl.classList.remove('show');
         return;
     }
-
     const data = tooltip.dataPoints?.[0];
     if (!data) return;
-
     const label = data.label;
     const value = data.formattedValue;
-
     tooltipEl.innerHTML = `
         <div style="font-weight:600;margin-bottom:2px">${label}</div>
         <div style="color:#22c55e;display:flex;align-items:center;gap:6px;">
@@ -246,29 +249,23 @@ function externalTooltipHandler(context) {
     // base position
     let left = canvasRect.left + window.pageXOffset + tooltip.caretX;
     let top = canvasRect.top + window.pageYOffset + tooltip.caretY;
-
     // 📌 AUTO FLIP (สำคัญ)
     const tooltipHeight = 40;
     const viewportHeight = window.innerHeight;
-
     const projectedTop = top - tooltipHeight;
-
     if (projectedTop < window.scrollY) {
         // ถ้าชนบน → ไปด้านล่าง
         tooltipEl.style.transform = 'translate(-50%, 20%) scale(1)';
     } else {
         tooltipEl.style.transform = 'translate(-50%, -120%) scale(1)';
     }
-
     // 📌 CLAMP X (ไม่ให้หลุดจอ)
     const tooltipWidth = tooltipEl.offsetWidth || 120;
     const minX = tooltipWidth / 2 + 10;
     const maxX = window.innerWidth - tooltipWidth / 2 - 10;
 
     left = Math.max(minX, Math.min(left, maxX));
-
     tooltipEl.style.left = left + 'px';
     tooltipEl.style.top = top + 'px';
-
     tooltipEl.classList.add('show');
 }
