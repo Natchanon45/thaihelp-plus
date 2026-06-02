@@ -9,7 +9,7 @@ const THEME_MODE_KEY = 'thaihelp_theme_mode';
 let currentCalculation = null;
 let isQuickSelect = false;
 
-const APP_VERSION = '5.2.2';
+const APP_VERSION = '5.3';
 const APP_AUTHOR = 'ณัฐชนน ศรีเปล่ง';
 
 /* =========================================================
