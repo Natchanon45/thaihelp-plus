@@ -5,21 +5,12 @@
 const DAILY_LIMIT = 200;
 const MONTHLY_LIMIT = 1000;
 const STORAGE_KEY = 'thaihelp_plus_transactions';
-const THEME_KEY = 'thaihelp_plus_theme';
+const THEME_MODE_KEY = 'thaihelp_theme_mode';
 let currentCalculation = null;
 let isQuickSelect = false;
 
-const APP_VERSION = '5.1.1';
+const APP_VERSION = '5.2';
 const APP_AUTHOR = 'ณัฐชนน ศรีเปล่ง';
-
-function initFooter() {
-    const footer = document.getElementById('appFooter');
-    if (!footer) return;
-
-    footer.innerHTML = `
-        App Version ${APP_VERSION} • พัฒนาโดย ${APP_AUTHOR}
-    `;
-}
 
 /* =========================================================
    INITIALIZE
@@ -103,6 +94,23 @@ function bindEvents() {
             el.setSelectionRange(newCursor, newCursor);
             isFormatting = false;
         });
+    });
+
+    const toggle = document.getElementById('themeToggle');
+    const autoBtn = document.getElementById('themeAutoBtn');
+
+    toggle?.addEventListener('change', () => {
+        const mode = toggle.checked ? 'dark' : 'light';
+        localStorage.setItem(THEME_MODE_KEY, mode);
+        applyTheme(mode);
+        syncToggleUI(mode);
+    });
+
+    autoBtn?.addEventListener('click', () => {
+        const mode = 'auto';
+        localStorage.setItem(THEME_MODE_KEY, mode);
+        applyTheme(mode);
+        syncToggleUI(mode);
     });
 
     document.querySelectorAll('.amount-btn').forEach((btn) => {
@@ -403,12 +411,12 @@ function showToast(message) {
    THEME
 ========================================================= */
 
-function initTheme() {
-    const theme = localStorage.getItem(THEME_KEY);
-    if (theme === 'dark') {
-        document.body.classList.add('dark');
-    }
-}
+// function initTheme() {
+//     const theme = localStorage.getItem(THEME_KEY);
+//     if (theme === 'dark') {
+//         document.body.classList.add('dark');
+//     }
+// }
 
 function toggleTheme() {
     document.body.classList.toggle('dark');
@@ -483,4 +491,58 @@ function handleMoneyInput(e) {
 
 function resetQuickAmount() {
     document.querySelectorAll('.amount-btn').forEach((btn) => btn.classList.remove('active'));
+}
+
+function initFooter() {
+    const footer = document.getElementById('appFooter');
+    if (!footer) return;
+
+    footer.innerHTML = `
+        App Version ${APP_VERSION} • พัฒนาโดย ${APP_AUTHOR}
+    `;
+}
+
+function initTheme() {
+    const mode = localStorage.getItem(THEME_MODE_KEY) || 'auto';
+    applyTheme(mode);
+    syncToggleUI(mode);
+    watchSystemTheme();
+}
+
+function applyTheme(mode) {
+    document.body.classList.remove('dark');
+    if (mode === 'dark') {
+        document.body.classList.add('dark');
+    }
+    if (mode === 'auto') {
+        const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (isDark) document.body.classList.add('dark');
+    }
+    updateThemeText(mode);
+}
+
+function syncToggleUI(mode) {
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+    toggle.checked = mode === 'dark';
+}
+
+function updateThemeText(mode) {
+    const el = document.getElementById('themeModeText');
+    if (!el) return;
+    const map = {
+        light: 'Light Mode',
+        dark: 'Dark Mode',
+        auto: 'Auto (System)',
+    };
+    el.textContent = map[mode] || 'Auto';
+}
+
+function watchSystemTheme() {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    media.addEventListener('change', () => {
+        const mode = localStorage.getItem(THEME_MODE_KEY);
+        if (mode !== 'auto') return;
+        applyTheme('auto');
+    });
 }
