@@ -460,23 +460,26 @@ a {
     opacity: 0.7;
 }
 
+.result-box i {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
 .result-box .value {
     font-size: 18px;
     font-weight: bold;
 }
-
 .result-box.gov {
     background: rgba(6, 199, 85, 0.1);
 }
-
 .result-box.user {
-    background: rgba(255, 99, 132, 0.1);
+    background: rgba(99, 151, 255, 0.1);
 }
-
 .cap-note {
     font-size: 12px;
     margin-top: 8px;
-    text-align: center;
+    text-align: left;
     color: #f59e0b;
 }
 /* =========================================================
@@ -486,7 +489,6 @@ a {
 .table {
     margin-top: 15px;
 }
-
 .table th {
     font-weight: 600;
 }

@@ -9,7 +9,7 @@ const THEME_MODE_KEY = 'thaihelp_theme_mode';
 let currentCalculation = null;
 let isQuickSelect = false;
 
-const APP_VERSION = '5.2.1';
+const APP_VERSION = '5.2.2';
 const APP_AUTHOR = 'ณัฐชนน ศรีเปล่ง';
 
 /* =========================================================
@@ -544,11 +544,11 @@ function updateThemeText(mode) {
     const el = document.getElementById('themeModeText');
     if (!el) return;
     const map = {
-        light: 'Light Mode',
-        dark: 'Dark Mode',
-        auto: 'Auto (System)',
+        light: 'กลางวัน',
+        dark: 'กลางคืน',
+        auto: 'อัตโนมัติ',
     };
-    el.textContent = map[mode] || 'Auto';
+    el.textContent = map[mode] || 'อัตโนมัติ';
 }
 
 function watchSystemTheme() {

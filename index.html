@@ -68,9 +68,9 @@
                             <!-- เพิ่มปุ่ม auto -->
                             <button id="themeAutoBtn" class="theme-auto-btn">
                                 <i class="fi fi-rr-settings"></i>
-                                <span>Auto</span>
+                                <span>ตั้งค่าตามระบบ</span>
                             </button>
-                            <div class="theme-mode-text" id="themeModeText">Auto</div>
+                            <div class="theme-mode-text" id="themeModeText">ตามระบบ</div>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,6 @@
                                 <button class="btn btn-outline-primary step-btn" data-step="20">+20</button>
                             </div>
                         </div>
-
                         <div class="d-grid gap-2 mt-3">
                             <button id="btnCalculate" class="btn btn-success btn-lg">
                                 <i class="fi fi-rr-calculator"></i>
@@ -174,7 +173,7 @@
                         </div>
                     </div>
                     <!-- Result -->
-                    <div id="resultCard" class="result-card compact d-none">
+                    <div id="resultCard" class="result-card compact">
                         <div class="result-header">
                             <div>ผลลัพธ์</div>
                             <button onclick="resetCalculator()" class="btn btn-sm btn-light">ล้างค่าผลลัพธ์</button>
@@ -182,11 +181,11 @@
                         <div class="result-grid">
                             <div class="result-box gov">
                                 <div class="label"><i class="fi fi-rr-hand-holding-heart"></i> รัฐช่วย</div>
-                                <div class="value" id="govAmount">0</div>
+                                <div class="value" id="govAmount">0.00 บาท</div>
                             </div>
                             <div class="result-box user">
-                                <div class="label"><i class="fi fi-rr-user"></i> ผู้ใช้จ่าย</div>
-                                <div class="value" id="userAmount">0</div>
+                                <div class="label"><i class="fi fi-rr-user"></i> คุณจ่าย</div>
+                                <div class="value" id="userAmount">0.00 บาท</div>
                             </div>
                         </div>
                         <div class="cap-note" id="capNote"></div>
