@@ -7,9 +7,10 @@ const MONTHLY_LIMIT = 1000;
 const STORAGE_KEY = 'thaihelp_plus_transactions';
 const THEME_KEY = 'thaihelp_plus_theme';
 let currentCalculation = null;
+let isQuickSelect = false;
 
-const APP_VERSION = "5.0";
-const APP_AUTHOR = "ณัฐชนน ศรีเปล่ง";
+const APP_VERSION = '5.1';
+const APP_AUTHOR = 'ณัฐชนน ศรีเปล่ง';
 
 function initFooter() {
     const footer = document.getElementById('appFooter');
@@ -30,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadHistory();
     updateBalance();
     bindEvents();
-    initFooter(); 
+    initFooter();
     hideSplash();
 });
 
@@ -76,6 +77,10 @@ function bindEvents() {
     if (!input || !btnClear) return;
     let isFormatting = false;
     input.addEventListener('input', function (e) {
+        btnClear.classList.toggle('show', input.value.length > 0);
+        if (!isQuickSelect) {
+            resetQuickAmount();
+        }
         if (isFormatting) return;
         isFormatting = true;
         const el = e.target;
@@ -102,12 +107,16 @@ function bindEvents() {
 
     document.querySelectorAll('.amount-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.amount-btn').forEach((b) => b.classList.remove('active'));
-            btn.classList.add('active');
             const input = document.getElementById('totalAmount');
+            isQuickSelect = true; // 👈 สำคัญ
+            resetQuickAmount();
+            btn.classList.add('active');
             input.value = btn.dataset.value;
             input.dispatchEvent(new Event('input', { bubbles: true }));
             input.focus();
+            setTimeout(() => {
+                isQuickSelect = false;
+            }, 0);
         });
     });
     // paste support
@@ -116,14 +125,17 @@ function bindEvents() {
             input.dispatchEvent(new Event('input'));
         }, 0);
     });
+
     // clear button
     input.addEventListener('input', function () {
         btnClear.classList.toggle('show', input.value.length > 0);
     });
+
     btnClear.addEventListener('click', function () {
         input.value = '';
         btnClear.classList.remove('show');
         input.focus();
+        resetQuickAmount();
     });
 }
 
@@ -233,6 +245,7 @@ function saveTransaction() {
     updateBalance();
     showToast('บันทึกรายการสำเร็จ');
     resetCalculator();
+    resetQuickAmount();
 
     if (typeof refreshCharts === 'function') {
         refreshCharts();
@@ -244,9 +257,13 @@ function saveTransaction() {
 ========================================================= */
 
 function resetCalculator() {
-    document.getElementById('totalAmount').value = '';
+    const input = document.getElementById('totalAmount');
+    const btnClear = document.getElementById('btnClearAmount');
+    input.value = '';
+    btnClear.classList.remove('show');
     document.getElementById('resultCard').classList.add('d-none');
     document.getElementById('btnSave').disabled = true;
+    resetQuickAmount();
 }
 
 /* =========================================================
@@ -462,4 +479,8 @@ function handleMoneyInput(e) {
         input.setSelectionRange(newCursorPos, newCursorPos);
         isFormatting = false;
     });
+}
+
+function resetQuickAmount() {
+    document.querySelectorAll('.amount-btn').forEach((btn) => btn.classList.remove('active'));
 }
