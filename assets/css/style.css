@@ -124,7 +124,8 @@ a {
     border-radius: 24px;
     padding: 18px;
     display: flex;
-    justify-content: space-between; /* ⭐ สำคัญ */
+    justify-content: space-between;
+    /* ⭐ สำคัญ */
     align-items: center;
     box-shadow: var(--shadow-lg);
 }
@@ -184,6 +185,7 @@ a {
     color: white;
     cursor: pointer;
 }
+
 .theme-switch {
     display: flex;
     gap: 8px;
@@ -225,14 +227,17 @@ a {
     gap: 5px;
     width: fit-content;
 }
+
 .theme-icon i {
     color: var(--icon-color);
     transition: 0.2s ease;
 }
+
 .theme-icon:hover i {
     transform: scale(1.1);
     color: var(--primary);
 }
+
 .theme-label {
     font-weight: 600;
     font-size: 14px;
@@ -280,11 +285,11 @@ a {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.switch input:checked + .slider {
+.switch input:checked+.slider {
     background-color: var(--primary);
 }
 
-.switch input:checked + .slider:before {
+.switch input:checked+.slider:before {
     transform: translateX(22px);
 }
 
@@ -293,6 +298,7 @@ a {
     text-align: center;
     color: var(--text-light);
 }
+
 .theme-auto-btn {
     margin-top: 2px;
     border: none;
@@ -471,18 +477,22 @@ a {
     font-size: 18px;
     font-weight: bold;
 }
+
 .result-box.gov {
     background: rgba(6, 199, 85, 0.1);
 }
+
 .result-box.user {
     background: rgba(99, 151, 255, 0.1);
 }
+
 .cap-note {
     font-size: 12px;
     margin-top: 8px;
     text-align: left;
     color: #f59e0b;
 }
+
 /* =========================================================
    HISTORY
 ========================================================= */
@@ -490,6 +500,7 @@ a {
 .table {
     margin-top: 15px;
 }
+
 .table th {
     font-weight: 600;
 }
@@ -610,14 +621,17 @@ a {
 .toast-container {
     z-index: 99999 !important;
 }
+
 .toast {
     min-width: 280px;
     border-radius: 14px;
 }
+
 .toast-header {
     background: var(--primary);
     color: white;
 }
+
 .toast-success {
     position: fixed;
     top: 20px;
@@ -646,6 +660,7 @@ a {
 .quick-amount .btn {
     min-width: 65px;
 }
+
 .input-wrapper {
     position: relative;
 }
@@ -681,12 +696,14 @@ a {
     background: rgba(17, 249, 33, 0.7);
     transform: translateY(-50%) scale(1);
 }
+
 /* show state */
 .clear-btn.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(-50%) scale(1);
 }
+
 /* icon */
 .clear-btn i {
     font-size: 16px;
@@ -694,6 +711,7 @@ a {
     line-height: 1;
     opacity: 0.7;
 }
+
 .input-group-lg .form-control {
     border-right: 0;
 }
@@ -702,17 +720,21 @@ a {
     border-left: 0;
     border-right: 0;
 }
+
 .input-group-lg .input-group-text {
     border-left: 0;
 }
+
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 input[type='number'] {
     appearance: textfield;
 }
+
 #totalAmount::-webkit-input-placeholder {
     color: #c4c4c4;
     font-size: 12px;
@@ -727,9 +749,11 @@ input[type='number'] {
     color: #c4c4c4;
     font-size: 12px;
 }
+
 #btnClearAmount {
     min-width: 30px;
 }
+
 .btn-soft-success {
     background: #e8f5e9;
     border: 1px solid #c8e6c9;
@@ -737,6 +761,7 @@ input[type='number'] {
     border-radius: 999px;
     transition: 0.2s;
 }
+
 .btn-soft-success:hover {
     background: #c8e6c9;
     transform: translateY(-1px);
@@ -752,6 +777,7 @@ input[type='number'] {
 .amount-btn:hover {
     transform: translateY(-1px);
 }
+
 .amount-btn.active {
     background: #2e7d32;
     color: #fff;
@@ -779,6 +805,7 @@ input[type='number'] {
     font-size: 12px;
     color: var(--text-light);
 }
+
 .update-banner {
     position: fixed;
     left: 16px;
@@ -798,11 +825,13 @@ input[type='number'] {
     pointer-events: none;
     transition: 0.25s;
 }
+
 .update-banner.show {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
 }
+
 .btn-update-app {
     border: none;
     border-radius: 999px;
@@ -811,6 +840,7 @@ input[type='number'] {
     color: #06c755;
     font-weight: 600;
 }
+
 .chart-tooltip {
     position: absolute;
     pointer-events: none;
