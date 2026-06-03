@@ -96,22 +96,22 @@ function bindEvents() {
         });
     });
 
-    const toggle = document.getElementById('themeToggle');
-    const autoBtn = document.getElementById('themeAutoBtn');
+    // const toggle = document.getElementById('themeToggle');
+    // const autoBtn = document.getElementById('themeAutoBtn');
 
-    toggle?.addEventListener('change', () => {
-        const mode = toggle.checked ? 'dark' : 'light';
-        localStorage.setItem(THEME_MODE_KEY, mode);
-        applyTheme(mode);
-        syncToggleUI(mode);
-    });
+    // toggle?.addEventListener('change', () => {
+    //     const mode = toggle.checked ? 'dark' : 'light';
+    //     localStorage.setItem(THEME_MODE_KEY, mode);
+    //     applyTheme(mode);
+    //     syncToggleUI(mode);
+    // });
 
-    autoBtn?.addEventListener('click', () => {
-        const mode = 'auto';
-        localStorage.setItem(THEME_MODE_KEY, mode);
-        applyTheme(mode);
-        syncToggleUI(mode);
-    });
+    // autoBtn?.addEventListener('click', () => {
+    //     const mode = 'auto';
+    //     localStorage.setItem(THEME_MODE_KEY, mode);
+    //     applyTheme(mode);
+    //     syncToggleUI(mode);
+    // });
 
     document.querySelectorAll('.amount-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
@@ -514,11 +514,18 @@ function initFooter() {
     `;
 }
 
+// function initTheme() {
+//     const mode = localStorage.getItem(THEME_MODE_KEY) || 'auto';
+//     applyTheme(mode);
+//     syncToggleUI(mode);
+//     watchSystemTheme();
+// }
+
 function initTheme() {
     const mode = localStorage.getItem(THEME_MODE_KEY) || 'auto';
     applyTheme(mode);
-    syncToggleUI(mode);
     watchSystemTheme();
+    initThemeButton();
 }
 
 function applyTheme(mode) {
@@ -528,26 +535,66 @@ function applyTheme(mode) {
     }
     if (mode === 'auto') {
         const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (isDark) document.body.classList.add('dark');
+        if (isDark) {
+            document.body.classList.add('dark');
+        }
     }
-    updateThemeText(mode);
+    updateThemeButton(mode);
 }
 
-function syncToggleUI(mode) {
-    const toggle = document.getElementById('themeToggle');
-    if (!toggle) return;
-    toggle.checked = mode === 'dark';
+function initThemeButton() {
+    const btn = document.getElementById('themeBtn');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+        const current = localStorage.getItem(THEME_MODE_KEY) || 'auto';
+        let next = 'auto';
+        switch (current) {
+            case 'auto':
+                next = 'light';
+                break;
+            case 'light':
+                next = 'dark';
+                break;
+            case 'dark':
+                next = 'auto';
+                break;
+        }
+        localStorage.setItem(THEME_MODE_KEY, next);
+        applyTheme(next);
+    });
 }
 
-function updateThemeText(mode) {
-    const el = document.getElementById('themeModeText');
-    if (!el) return;
-    const map = {
-        light: 'กลางวัน',
-        dark: 'กลางคืน',
-        auto: 'อัตโนมัติ',
+// function syncToggleUI(mode) {
+//     const toggle = document.getElementById('themeToggle');
+//     if (!toggle) return;
+//     toggle.checked = mode === 'dark';
+// }
+
+// function updateThemeText(mode) {
+//     const el = document.getElementById('themeModeText');
+//     if (!el) return;
+//     const map = {
+//         light: 'กลางวัน',
+//         dark: 'กลางคืน',
+//         auto: 'อัตโนมัติ',
+//     };
+//     el.textContent = map[mode] || 'อัตโนมัติ';
+// }
+
+function updateThemeButton(mode) {
+    const btn = document.getElementById('themeBtn');
+    if (!btn) return;
+    const icons = {
+        auto: 'fi fi-rr-settings',
+        light: 'fi fi-rr-sun',
+        dark: 'fi fi-rr-moon'
     };
-    el.textContent = map[mode] || 'อัตโนมัติ';
+    btn.innerHTML = `<i class="${icons[mode]}"></i>`;
+    btn.title = {
+        auto: 'ตามระบบ',
+        light: 'โหมดสว่าง',
+        dark: 'โหมดมืด'
+    }[mode];
 }
 
 function watchSystemTheme() {
