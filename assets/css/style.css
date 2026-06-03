@@ -661,6 +661,10 @@ a {
     min-width: 65px;
 }
 
+.stepper-amount .btn {
+    min-width: 53px;
+}
+
 .input-wrapper {
     position: relative;
 }
@@ -783,28 +787,28 @@ input[type='number'] {
     color: #fff;
 }
 
-/* .app-footer {
+.app-footer {
     position: fixed;
     bottom: calc(var(--nav-height) + 8px);
     left: 0;
     width: 100%;
     text-align: center;
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-light);
     opacity: 0.75;
     padding: 6px 12px;
     z-index: 9998;
     pointer-events: none;
-    /* กันข้อความชนขอบ 
+    /* กันข้อความชนขอบ */
     line-height: 1.4;
     box-sizing: border-box;
-} */
-.app-footer {
+}
+/* .app-footer {
     margin-top: 20px;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
     color: var(--text-light);
-}
+} */
 
 .update-banner {
     position: fixed;

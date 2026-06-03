@@ -146,27 +146,28 @@
                             <button class="btn btn-sm btn-soft-success amount-btn" data-value="200">200</button>
                         </div>
                         <div class="stepper-amount mt-2 d-flex flex-wrap gap-2">
-                            <button class="btn btn-outline-primary step-btn" data-step="1">+1</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="5">+5</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="10">+10</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="20">+20</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="50">+50</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="100">+100</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="-1">-1</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="-5">-5</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="-10">-10</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="-20">-20</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="-50">-50</button>
-                            <button class="btn btn-outline-primary step-btn" data-step="-100">-100</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="1">+1</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="5">+5</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="10">+10</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="20">+20</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="50">+50</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="100">+100</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="-1">-1</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="-5">-5</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="-10">-10</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="-20">-20</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="-50">-50</button>
+                            <button class="btn btn-sm btn-outline-primary step-btn" data-step="-100">-100</button>
                         </div>
                     </div>
-                    <div class="d-grid gap-2 mt-3">
-                        <button id="btnCalculate" class="btn btn-success btn-lg">
+
+                    <div class="d-flex mt-3 gap-2">
+                        <button id="btnCalculate" class="btn btn-success flex-fill">
                             <i class="fi fi-rr-calculator"></i>
                             คำนวณ
                         </button>
 
-                        <button id="btnSave" disabled class="btn btn-outline-success btn-lg">
+                        <button id="btnSave" disabled class="btn btn-outline-success flex-fill">
                             <i class="fi fi-rr-disk"></i>
                             บันทึก
                         </button>
@@ -275,10 +276,10 @@
             <i class="fi fi-rr-download"></i>
             มีเวอร์ชันใหม่พร้อมใช้งาน
         </span>
-
         <button id="btnUpdateApp" class="btn-update-app">อัปเดต</button>
     </div>
     <div id="chartTooltip" class="chart-tooltip"></div>
+    <footer id="appFooter" class="app-footer"></footer>
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <!-- ChartJS -->
@@ -288,7 +289,6 @@
     <script src="assets/js/app.js"></script>
     <script src="assets/js/charts.js"></script>
     <script src="assets/js/pwa.js"></script>
-    <footer id="appFooter" class="app-footer"></footer>
 </body>
 
 </html>

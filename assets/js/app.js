@@ -243,7 +243,6 @@ function calculate() {
         gov,
         user,
     };
-
     document.getElementById('govAmount').textContent = gov.toFixed(2) + ' บาท';
     document.getElementById('userAmount').textContent = user.toFixed(2) + ' บาท';
 
@@ -251,9 +250,9 @@ function calculate() {
     if (gov < total * 0.6) {
         note = 'วงเงินช่วยเหลือคงเหลือไม่เพียงพอ';
     }
-
     document.getElementById('capNote').textContent = note;
     document.getElementById('resultCard').classList.remove('d-none');
+    btnSave.classList.replace('btn-outline-success', 'btn-success');
     document.getElementById('btnSave').disabled = false;
 }
 
@@ -272,14 +271,12 @@ function saveTransaction() {
         gov: currentCalculation.gov,
         user: currentCalculation.user,
     });
-
     saveTransactions(transactions);
     loadHistory();
     updateBalance();
     showToast('บันทึกรายการสำเร็จ');
     resetCalculator();
     resetQuickAmount();
-
     if (typeof refreshCharts === 'function') {
         refreshCharts();
     }
@@ -295,6 +292,7 @@ function resetCalculator() {
     input.value = '';
     btnClear.classList.remove('show');
     document.getElementById('resultCard').classList.add('d-none');
+    btnSave.classList.replace('btn-success', 'btn-outline-success');
     document.getElementById('btnSave').disabled = true;
     resetQuickAmount();
 }
@@ -308,12 +306,10 @@ function loadHistory() {
     const empty = document.getElementById('historyEmpty');
     const transactions = getTransactions();
     table.innerHTML = '';
-
     if (transactions.length === 0) {
         empty.style.display = 'block';
         return;
     }
-
     empty.style.display = 'none';
     [...transactions].reverse().forEach((row, index) => {
         table.innerHTML += `
@@ -373,7 +369,6 @@ function clearAllTransactions() {
     loadHistory();
     updateBalance();
     showToast('ล้างข้อมูลสำเร็จ');
-
     if (typeof refreshCharts === 'function') {
         refreshCharts();
     }
@@ -411,7 +406,7 @@ function showToast(message) {
     toast.innerHTML = `
         <div class="toast-header">
             <i class="fi fi-rr-check me-2 text-success"></i>
-            <strong class="me-auto">ระบบ</strong>
+            <strong class="me-auto">ไทยช่วยไทย พลัส แจ้งว่า</strong>
             <button
                 type="button"
                 class="btn-close"
@@ -424,7 +419,7 @@ function showToast(message) {
     `;
     container.appendChild(toast);
     const bsToast = new bootstrap.Toast(toast, {
-        delay: 3000,
+        delay: 2000,
     });
     bsToast.show();
     toast.addEventListener('hidden.bs.toast', () => {
@@ -435,13 +430,6 @@ function showToast(message) {
 /* =========================================================
    THEME
 ========================================================= */
-
-// function initTheme() {
-//     const theme = localStorage.getItem(THEME_KEY);
-//     if (theme === 'dark') {
-//         document.body.classList.add('dark');
-//     }
-// }
 
 function toggleTheme() {
     document.body.classList.toggle('dark');
@@ -521,7 +509,6 @@ function resetQuickAmount() {
 function initFooter() {
     const footer = document.getElementById('appFooter');
     if (!footer) return;
-
     footer.innerHTML = `
         App Version ${APP_CONFIG.version} • พัฒนาโดย ${APP_AUTHOR}
     `;
