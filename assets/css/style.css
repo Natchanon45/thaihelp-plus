@@ -94,7 +94,8 @@ a {
 }
 
 #splash-screen img {
-    width: 100px;
+    width: 100%;
+    height: inherit;
 }
 
 #splash-screen h1 {

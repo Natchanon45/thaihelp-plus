@@ -36,8 +36,8 @@ function hideSplash() {
         splash.style.opacity = '0';
         setTimeout(() => {
             splash.remove();
-        }, 500);
-    }, 800);
+        }, 1000);
+    }, 3000);
 }
 
 /* =========================================================
