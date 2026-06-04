@@ -46,7 +46,13 @@ function hideSplash() {
 
 function initDate() {
     const today = new Date();
-    document.getElementById('currentDate').textContent = today.toLocaleDateString('en-GB');
+    const dateText = new Intl.DateTimeFormat('th-TH-u-ca-buddhist', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).format(today);
+    document.getElementById('currentDate').textContent = dateText;
 }
 
 /* =========================================================
@@ -95,23 +101,6 @@ function bindEvents() {
             isFormatting = false;
         });
     });
-
-    // const toggle = document.getElementById('themeToggle');
-    // const autoBtn = document.getElementById('themeAutoBtn');
-
-    // toggle?.addEventListener('change', () => {
-    //     const mode = toggle.checked ? 'dark' : 'light';
-    //     localStorage.setItem(THEME_MODE_KEY, mode);
-    //     applyTheme(mode);
-    //     syncToggleUI(mode);
-    // });
-
-    // autoBtn?.addEventListener('click', () => {
-    //     const mode = 'auto';
-    //     localStorage.setItem(THEME_MODE_KEY, mode);
-    //     applyTheme(mode);
-    //     syncToggleUI(mode);
-    // });
 
     document.querySelectorAll('.amount-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
