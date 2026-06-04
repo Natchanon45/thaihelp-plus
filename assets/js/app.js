@@ -514,13 +514,6 @@ function initFooter() {
     `;
 }
 
-// function initTheme() {
-//     const mode = localStorage.getItem(THEME_MODE_KEY) || 'auto';
-//     applyTheme(mode);
-//     syncToggleUI(mode);
-//     watchSystemTheme();
-// }
-
 function initTheme() {
     const mode = localStorage.getItem(THEME_MODE_KEY) || 'auto';
     applyTheme(mode);
@@ -564,30 +557,13 @@ function initThemeButton() {
     });
 }
 
-// function syncToggleUI(mode) {
-//     const toggle = document.getElementById('themeToggle');
-//     if (!toggle) return;
-//     toggle.checked = mode === 'dark';
-// }
-
-// function updateThemeText(mode) {
-//     const el = document.getElementById('themeModeText');
-//     if (!el) return;
-//     const map = {
-//         light: 'กลางวัน',
-//         dark: 'กลางคืน',
-//         auto: 'อัตโนมัติ',
-//     };
-//     el.textContent = map[mode] || 'อัตโนมัติ';
-// }
-
 function updateThemeButton(mode) {
     const btn = document.getElementById('themeBtn');
     if (!btn) return;
     const icons = {
-        auto: 'fi fi-rr-settings',
-        light: 'fi fi-rr-sun',
-        dark: 'fi fi-rr-moon'
+        auto: 'fi fi-rr-operation',
+        light: 'fi fi-rr-brightness',
+        dark: 'fi fi-rr-moon-stars'
     };
     btn.innerHTML = `<i class="${icons[mode]}"></i>`;
     btn.title = {
