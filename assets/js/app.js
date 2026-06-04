@@ -419,7 +419,7 @@ function showToast(message) {
     `;
     container.appendChild(toast);
     const bsToast = new bootstrap.Toast(toast, {
-        delay: 2000,
+        delay: 3000,
     });
     bsToast.show();
     toast.addEventListener('hidden.bs.toast', () => {
