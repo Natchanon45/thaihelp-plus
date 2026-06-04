@@ -400,7 +400,8 @@ a {
 }
 
 .table th {
-    font-weight: 600;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .table td {

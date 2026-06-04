@@ -304,8 +304,7 @@ function loadHistory() {
         table.innerHTML += `
                 <tr>
                     <td>
-                        ${formatDate(row.date)}
-                        <br>
+                        <small><b>${formatDate(row.date)}</b></small><br />
                         <small>${row.time}</small>
                     </td>
                     <td>
