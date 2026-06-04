@@ -1,4 +1,4 @@
-const CACHE_NAME = 'thaihelp-plus-v5.3.5-build-20260604.2';
+const CACHE_NAME = 'thaihelp-plus-v5.3.5-build-20260604.3';
 const urlsToCache = [
     './',
     './index.html',

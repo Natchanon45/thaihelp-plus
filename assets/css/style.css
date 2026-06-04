@@ -171,7 +171,8 @@ a {
     height: 42px;
     border-radius: 50%;
     border: 1px solid rgba(255, 255, 255, .08);
-    background: rgba(255, 255, 255, .08);
+    /* background: rgba(255, 255, 255, .08); */
+    background: var(--text-light);
     backdrop-filter: blur(10px);
     color: var(--body-bg);
     display: flex;
@@ -184,10 +185,10 @@ a {
 
 .theme-btn i {
     display: flex;
-    transform: translateX(1px);
+    transform: translateX(0.5px);
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1;
 }
 /* =========================================================
