@@ -361,6 +361,24 @@ a {
     background: rgba(99, 151, 255, 0.1);
 }
 
+.btn-clear {
+    min-width: 110px;
+    min-height: 35px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, .08);
+    /* background: rgba(255, 255, 255, .08); */
+    background: var(--text-light);
+    backdrop-filter: blur(10px);
+    color: var(--body-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    font-size: 16px;
+    transition: all .2s ease;
+}
+
 .cap-note {
     font-size: 12px;
     margin-top: 8px;
