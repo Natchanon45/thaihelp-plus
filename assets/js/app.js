@@ -549,7 +549,7 @@ function updateThemeButton(mode) {
     const btn = document.getElementById('themeBtn');
     if (!btn) return;
     const icons = {
-        auto: 'fi fi-rr-operation',
+        auto: 'fi fi-rr-circle-half-stroke',
         light: 'fi fi-rr-brightness',
         dark: 'fi fi-rr-moon-stars'
     };
