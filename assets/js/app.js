@@ -308,13 +308,13 @@ function loadHistory() {
                         <small>${row.time}</small>
                     </td>
                     <td>
-                        ${row.total.toFixed(2)}
+                        <small>${row.total.toFixed(2)}</small>
                     </td>
                     <td>
-                        ${row.gov.toFixed(2)}
+                        <small>${row.gov.toFixed(2)}</small>
                     </td>
                     <td>
-                        ${row.user.toFixed(2)}
+                        <small>${row.user.toFixed(2)}</small>
                     </td>
                     <td>
                         <button
