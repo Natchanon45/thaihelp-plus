@@ -1,4 +1,4 @@
-const CACHE_NAME = 'thaihelp-plus-v5.4-build-20260605.7';
+const CACHE_NAME = 'thaihelp-plus-v5.5-build-20260607.1';
 const urlsToCache = [
     './',
     './index.html',
@@ -7,10 +7,12 @@ const urlsToCache = [
     './assets/js/config.js',
     './assets/js/app.js',
     './assets/js/charts.js',
+    './assets/js/backup.js',
     './assets/js/pwa.js',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
     'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js',
     'https://cdn.jsdelivr.net/npm/chart.js',
+    'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
 ];
 /* ==========================================
    INSTALL

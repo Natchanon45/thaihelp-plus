@@ -862,3 +862,24 @@ input[type='number'] {
         max-width: 1000px;
     }
 }
+
+/* =========================================================
+   BACKUP / IMPORT TOOLS
+========================================================= */
+.backup-tools {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.backup-tools .btn {
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 8px 12px;
+}
+@media (max-width: 430px) {
+    .backup-tools .btn {
+        flex: 1 1 calc(50% - 8px);
+        white-space: nowrap;
+        font-size: 13px;
+    }
+}

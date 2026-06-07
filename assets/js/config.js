@@ -1,4 +1,4 @@
 window.APP_CONFIG = {
-    version: '5.4',
-    build: '20260605.7',
+    version: '5.5',
+    build: '20260607.1',
 };
